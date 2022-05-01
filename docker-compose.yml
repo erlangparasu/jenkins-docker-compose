@@ -2,6 +2,7 @@ version: "3.9"
 services:
   jenkins-docker:
     image: docker:dind
+    privileged: true
     environment:
       - JENKINS_OPTS="--prefix=/jenkins"
       - DOCKER_TLS_CERTDIR=/certs
@@ -16,7 +17,7 @@ services:
     build: ./jenkins-blueocean/
     environment:
       - JENKINS_OPTS="--prefix=/jenkins"
-      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_HOST=tcp://jenkins-docker:2376
       - DOCKER_CERT_PATH=/certs/client
       - DOCKER_TLS_VERIFY=1
     ports:
